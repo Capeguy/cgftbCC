@@ -1,0 +1,43 @@
+function grabURL()
+  url = "https://raw.githubusercontent.com/capeguy/cgftbCC/master/version"
+  return url
+end
+
+function Check()
+for i=1, 3 do
+  url = grabURL()
+ if url == nil then error "Update URL Is Nil, Please Report If It Isnt Your Fault!" end
+  local response = http.get(url)
+  if response then
+    local data = response.readLine()
+	local f = fs.open("version", "r")
+	currentVersion = f.readLine()
+	f.close()
+	  if data ~= currentVersion then
+	    return true
+	  else
+	    return false
+	  end
+  else
+    error "The Update URL Cannot Be Resolved Or Is Missing [404]"  
+  end
+end
+error "The URL Cannot Be Reached! [208]"
+end
+
+function Update() --Updates The Updater Files
+  for i=1, 3 do
+    local response = http.get(updateURL)
+	  if response then
+	    local data = response.readAll()
+		local f = io.open("/systemFiles/Install/updater")
+		f:write(data)
+		f:close()
+		return true
+	  else
+	    error "UpdaterURL Could Not Be Resolved [404]"
+		return false
+	  end
+  end
+ error "The Updater Request Timed Out."
+end

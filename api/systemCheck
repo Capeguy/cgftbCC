@@ -1,0 +1,20 @@
+function checkColor()
+  if not term.isColor then
+    error "Computer Must Be Advanced, If It Is Then Report As A Bug"
+  end
+  return true
+end
+
+function checkPocket()
+  if pocket then
+    error "Software Does Not Support Pocket Computers"
+  end
+  return true
+end
+
+function checkhttp()
+  if not http then
+    error ("HTTP Must Be Enabled")
+  end
+  return true
+end

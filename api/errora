@@ -1,0 +1,35 @@
+os.pullEvent = os.pullEventRaw
+
+function getSize()
+  termX, termY = term.getSize()
+end
+
+function err(code, reason)
+  getSize()
+  term.setBackgroundColor(colors.blue)
+  term.setTextColor(1)
+  term.clear()
+  titleBar.draw("HbombOS Security Suite", "Crash handling", colors.cyan, colors.red, 128, colors.blue, 1) --Syntax: Text, Subtext, Text Color, SubText Color, Bg Color, DefaultBGcolor, DefaultTextColor
+    printer.centered("HbombOS Security Suite", 4)
+    printer.centered("The Suite Has Encountered An Unexpected Error", 5)
+    printer.centered("To Protect Against Intruders The Suite",7) 
+	printer.centered("Has Called This Error", 8)
+	code = code or "No Code Provided"
+	reason = reason or "No Description Provided"
+	printer.centered(code, 10)
+	printer.centered("Error Description:", 12)
+	term.setCursorPos(1,15)
+	reasonLength = reason
+	if reason then
+	  if #reasonLength >= termX then
+        print(reason)
+	  else
+	    printer.centered(reason, 15)
+	  end
+	else
+	  print("No Description Provided")
+	end
+    printer.centered("Press Any Key To Continue", 19)
+    os.pullEvent("key")
+    os.reboot()	
+end

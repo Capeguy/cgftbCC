@@ -1,0 +1,8 @@
+
+function centered(text, y)
+	local w, h = term.getSize()
+    x = math.ceil(math.ceil((w / 2) - (#text / 2)), 0)+1
+    term.setCursorPos(x, y)
+	term.clearLine()
+    write(text)
+end

@@ -1,0 +1,24 @@
+
+
+function draw(text, subtext, textcolor, subtextcolor, backgroundcolor, defaultbgcolor, defaulttextcolor)
+  if text == nil then text = "Nil" end
+  if subtext == nil then subtext = "Nil" end
+  if textcolor == nil then textcolor = colors.white end
+  if subtextcolor == nil then subtextcolor = colors.cyan end
+  if backgroundcolor == nil then backgroundcolor = 128 end
+  if defaultbgcolor == nil then defaultbgcolor = 256 end
+  if defaulttextcolor == nil then defaulttextcolor = 1 end
+  term.setBackgroundColor(defaultbgcolor)
+  term.clear()
+  term.setBackgroundColor(backgroundcolor)
+  term.setCursorPos(1,1)
+  term.clearLine()
+  term.setTextColor(textcolor)
+  print(text)
+  term.setCursorPos(1,2)
+  term.clearLine()
+  term.setTextColor(subtextcolor)
+  print(subtext)
+  term.setBackgroundColor(defaultbgcolor)
+  term.setTextColor(defaulttextcolor)
+end
