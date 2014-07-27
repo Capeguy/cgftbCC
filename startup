@@ -1,0 +1,26 @@
+if update.Check() then
+    PrintCentered("An Update Has Been Detected", 19)
+	sleep(0)
+    PrintCentered("Obtaining Latest Update From GitHub", 18)
+	PrintCentered("Seeking URL", 19)
+	sleep(1)
+	PrintCentered("Parsed", 19)
+	sleep(0)
+	PrintCentered("Downloading New Updater", 19)
+	download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/systemFiles/Install/updater", "systemFiles/Install/updater")
+	sleep(1)
+	PrintCentered("Download Complete, Running Updater",18)
+	sleep(0)
+	local f = fs.open('systemFiles/Install/updateConfig', 'r')
+	useSettingQuiet = f.readLine()
+	f.close()
+	shell.run("systemFiles/Install/updater", "quiet")
+	errora.err(nil, "The Updater Experienced An Unknown Exception, Or It Ended With No Protocol, If the issue persists, report it")
+  elseif not update.Check() then
+    PrintCentered("You Are Running The Latest STABLE Version!", 19)
+	--beta() --Remove when no longer a BETA build!
+	printer.centered("Reading Config File..", 19)
+	sleep(0.1)
+	return true
+end
+print("Launching CraftOS...")
