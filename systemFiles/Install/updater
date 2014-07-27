@@ -1,0 +1,97 @@
+local args = { ... }
+
+-- This is the program/script that actually re-installs all of the scripts on the computer
+termX, termY = term.getSize()
+
+function PrintCentered(text, y)
+	local w, h = term.getSize()
+    x = math.ceil(math.ceil((w / 2) - (#text / 2)), 0)+1
+    term.setCursorPos(x, y)
+	term.clearLine()
+    write(text)
+end
+
+function drawTitleBar()
+  term.setBackgroundColor(128)
+  term.setCursorPos(1,1)
+  term.clearLine()
+  term.setTextColor(colors.cyan)
+  write "CGFTB CC OS"
+  term.setCursorPos(1,2)
+  term.clearLine()
+  term.setTextColor(256)
+  write "Updater"
+  term.setTextColor(1)
+  term.setBackgroundColor(256)
+end
+
+function welcome()
+term.setBackgroundColor(256)
+term.clear()
+drawTitleBar()
+PrintCentered("Welcome to the CGFTB Updater", 4)
+PrintCentered("This Updater Will Guide", 6)
+PrintCentered("You Through Updating Your OS", 7)
+PrintCentered("Press Y Continue Or N To Cancel", 9)
+local event, key = os.pullEvent("key")
+if key == keys.y then
+term.clear()
+drawTitleBar()
+PrintCentered("Updating..", 4)
+sleep(1)
+PrintCentered("Connection Established", 6)
+sleep(0.1)
+PrintCentered("Starting Download", 6)
+downloader()
+PrintCentered("Finished Downloading Scripts", 6)
+sleep(1)
+term.clear()
+drawTitleBar()
+PrintCentered ("Thank You For Updating", 6)
+PrintCentered ("We Hope You Enjoy Your Updated OS", 8)
+PrintCentered ("Verifying Update With GitHub..", 19)
+sleep(2)
+PrintCentered ("Press Any Key To Finish", 19)
+os.pullEvent("key")
+term.setBackgroundColor(colors.black)
+term.clear()
+term.setCursorPos(1,1)
+term.clearLine()
+os.reboot()
+
+else
+  term.clear()
+  drawTitleBar()
+  PrintCentered("Cancelling...", 6)
+  sleep(1)
+  PrintCentered ("Cancelled, Come Back Soon", 6)
+  sleep(2)
+  os.shutdown()
+end
+end
+
+function downloader(quietDownload)
+drawTitleBar()
+PrintCentered("Downloading Scripts From GitHub... Please Wait", 6)
+download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/api/download", "/api/download")
+download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/api/systemCheck", "/api/systemCheck")
+download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/api/update", "/api/update")
+download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/api/printer", "/api/printer")
+download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/api/titleBar", "/api/titleBar")
+download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/api/errora", "/api/errora")
+download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/README", "/Documentation/README")
+download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/LICENSE", "/Documentation/LICENSE")
+download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/systemFiles/Install/updater", "systemFiles/Install/updater")
+download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/startup", "startup")
+download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/version", "version")
+if quietDownload then os.reboot() else return true end
+end
+
+if args[1] == "quiet" then 
+  term.setBackgroundColor(256)
+  term.clear()
+  drawTitleBar() 
+  downloader(true) 
+else 
+  welcome() 
+end
