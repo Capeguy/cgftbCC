@@ -1,3 +1,32 @@
+function loadAPIs()  --Auto Loads ALL APIs It Can As Long As They Are In /api
+  drawTitleBar()
+	local total = #fs.list("/api")
+	term.setBackgroundColor(256)
+	PrintCentered("Loading APIs", 17)
+	for _, fileApi in pairs(fs.list('/api')) do
+		if string.sub(fileApi,1,1) ~= "." then
+			if os.loadAPI('/api/'..fileApi) then
+			sleep(0)
+			term.setBackgroundColor(256)
+			term.setTextColor(colors.white)
+            term.setCursorPos(1,19)
+			term.clearLine()
+			term.setCursorPos(1,18)
+			term.clearLine()
+			PrintCentered(fileApi.." Loaded!", 18)
+		    else
+			  error ("Error Occurred Whilst Loading API: "..fileApi)
+			end
+		end
+	end
+	sleep(0.1)
+	term.clear()
+	initBackground(256)
+	drawTitleBar()
+	return true
+end
+
+loadAPIs()
 if update.Check() then
     PrintCentered("An Update Has Been Detected", 19)
 	sleep(0)
