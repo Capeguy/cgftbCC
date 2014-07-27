@@ -79,7 +79,7 @@ download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/api/updat
 download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/api/printer", "/api/printer")
 download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/api/titleBar", "/api/titleBar")
 download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/api/errora", "/api/errora")
-download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/README", "/Documentation/README")
+download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/README.md", "/Documentation/README")
 download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/LICENSE", "/Documentation/LICENSE")
 download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/systemFiles/Install/updater", "systemFiles/Install/updater")
 download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/startup", "startup")
