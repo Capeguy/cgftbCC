@@ -1,3 +1,44 @@
+function PrintCentered(text, y)
+	local w, h = term.getSize()
+    x = math.ceil(math.ceil((w / 2) - (#text / 2)), 0)+1
+    term.setCursorPos(x, y)
+	term.clearLine()
+    write(text)
+end
+
+function initBackground(color) --Use To Quickly assemble GUI
+  term.setBackgroundColor(color)
+  term.clear()  
+  drawTitleBar()
+end
+
+function checkStartKey()
+  term.setBackgroundColor(128)
+  term.setTextColor(256)
+  if bootKey then
+    Boottext = "Entering Setup"
+  else
+    Boottext = "[alt] -"
+  end
+    term.setCursorPos(termX-(#Boottext+1), 1)
+    write(Boottext)
+  term.setBackgroundColor(256)
+  term.setTextColor(1)
+end
+
+function drawTitleBar()
+  term.setBackgroundColor(128)
+  term.setCursorPos(1,1)
+  term.clearLine()
+  term.setTextColor(colors.cyan)
+  write "CGFTB CC OS"
+  term.setCursorPos(1,2)
+  term.clearLine()
+  term.setTextColor(256)
+  write "Startup"
+  checkStartKey()
+end
+
 function loadAPIs()  --Auto Loads ALL APIs It Can As Long As They Are In /api
   drawTitleBar()
 	local total = #fs.list("/api")
