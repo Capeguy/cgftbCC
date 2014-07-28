@@ -87,6 +87,7 @@ if update.Check() then
     sleep(2)
 	printer.centered("Loaded! Entering shell in 5 seconds", 19)
 	sleep(5)
+    term.setBackgroundColor(colors.black)
     term.clear()
     print("Launching CraftOS...")
 	return true

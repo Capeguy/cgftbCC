@@ -1,4 +1,4 @@
-0.0.0.3
+0.0.0.4
 
 --STABLE BUILD!
 
@@ -11,9 +11,7 @@ computer will update continuously
 --This Version ChangeLog--
 --------------------------
 
--- Improved Updater Script
--- Removed redundant stuff
-
+-- Abit of more fixes to startup
 
 --------------------------
 --Old Version ChangeLogs--
@@ -23,6 +21,8 @@ computer will update continuously
 -- Added install script, updater script etc
 -- Made startup script successfully, testing auto update lol
 -- Hopefully... it works this time...
+-- Improved Updater Script
+-- Removed redundant stuff
 
    ------------------
    --END OF CHANGES--
