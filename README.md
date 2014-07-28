@@ -11,7 +11,7 @@ On a CC Computer, run the shell command
 
 
 ```
-"pastebin run yVbizg0A"
+pastebin run yVbizg0A
 ```
 
 
