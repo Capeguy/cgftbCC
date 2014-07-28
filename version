@@ -1,4 +1,4 @@
-0.0.0.4
+0.1.0.0
 
 --STABLE BUILD!
 
@@ -11,7 +11,8 @@ computer will update continuously
 --This Version ChangeLog--
 --------------------------
 
--- Abit of more fixes to startup
+-- First Build!
+-- Fixed README with instructions
 
 --------------------------
 --Old Version ChangeLogs--
@@ -23,6 +24,7 @@ computer will update continuously
 -- Hopefully... it works this time...
 -- Improved Updater Script
 -- Removed redundant stuff
+-- Abit of more fixes to startup
 
    ------------------
    --END OF CHANGES--
