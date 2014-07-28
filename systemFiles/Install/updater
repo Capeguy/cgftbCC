@@ -85,6 +85,10 @@ download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/systemFil
 download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/startup", "startup")
 download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/version", "version")
 PrintCentered("Download Complete! Rebooting...", 6)
+local f = fs.open("version", "r")
+  vCurrent = f.readLine()
+  f.close()
+PrintCentered("Updated Version: "..vCurrent.."", 12)
 if quietDownload then os.reboot() else return true end
 end
 
