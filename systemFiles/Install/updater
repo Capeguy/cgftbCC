@@ -1,5 +1,7 @@
 local args = { ... }
 
+errMess = 'ERROR'
+
 -- This is the program/script that actually re-installs all of the scripts on the computer
 termX, termY = term.getSize()
 
@@ -73,17 +75,17 @@ end
 function downloader(quietDownload)
 drawTitleBar()
 PrintCentered("Downloading Scripts From GitHub... Please Wait", 6)
-download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/api/download", "/api/download")
-download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/api/systemCheck", "/api/systemCheck")
-download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/api/update", "/api/update")
-download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/api/printer", "/api/printer")
-download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/api/titleBar", "/api/titleBar")
-download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/api/errora", "/api/errora")
-download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/README.md", "/Documentation/README")
-download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/LICENSE", "/Documentation/LICENSE")
-download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/systemFiles/Install/updater", "systemFiles/Install/updater")
-download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/startup", "startup")
-download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/version", "version")
+if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/api/download", "/api/download") then return errMess end
+if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/api/systemCheck", "/api/systemCheck") then return errMess end
+if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/api/update", "/api/update") then return errMess end
+if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/api/printer", "/api/printer") then return errMess end
+if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/api/titleBar", "/api/titleBar") then return errMess end
+if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/api/errora", "/api/errora") then return errMess end
+if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/README.md", "/Documentation/README") then return errMess end
+if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/LICENSE", "/Documentation/LICENSE") then return errMess end
+if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/systemFiles/Install/updater", "systemFiles/Install/updater") then return errMess end
+if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/startup", "startup") then return errMess end
+if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/version", "version") then return errMess end
 PrintCentered("Download Complete! Rebooting in 5 seconds...", 6)
 local f = fs.open("version", "r")
   vCurrent = f.readLine()
@@ -97,7 +99,7 @@ if args[1] == "quiet" then
   term.setBackgroundColor(256)
   term.clear()
   drawTitleBar() 
-  downloader(true) 
+  if downloader(true) == "ERROR" then printer.centered('An Error Occured, Please Wait While We Re-Try', 19) sleep(2) shell.run('systemFiles/Install/updater', "quiet") end
 else 
   welcome() 
 end

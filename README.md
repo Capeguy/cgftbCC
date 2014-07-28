@@ -28,7 +28,7 @@ add a line:
 
 
 ```lua
-download.git("[raw link to git file]", "[location to place in CC com]")
+if not download.git("[raw link to git file]", "[location to place in CC com]") then return errMess end
 ```
 
 

@@ -3,10 +3,13 @@ function grabURL()
   return url
 end
 
+errorMes = "ERROR"
+errorMesFatal = 'FatalException'
+
 function Check()
 for i=1, 3 do
   url = grabURL()
- if url == nil then error "Update URL Is Nil, Please Report If It Isnt Your Fault!" end
+ if url == nil then errora.err('Updater URL', 'The Update Source URL Is Empty! Please Report If Not Your Fault') end
   local response = http.get(url)
   if response then
     local data = response.readLine()
@@ -33,11 +36,11 @@ function Update() --Updates The Updater Files
 		local f = io.open("/systemFiles/Install/updater")
 		f:write(data)
 		f:close()
-		return true
+		return errorMes
 	  else
-	    error "UpdaterURL Could Not Be Resolved [404]"
-		return false
+		return errorMes
 	  end
   end
- error "The Updater Request Timed Out."
+return false
+ --error "The Updater Request Timed Out."
 end

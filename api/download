@@ -1,20 +1,18 @@
+errorMes = "ERROR"
+
 function git(url, toPath) --Download From Git-hub To A PATH Specified in Arguments
  for i=1, 3 do
  sleep(0)
   local response = http.get(url)
   if response then
     local data = response.readAll()
-	if toPath then
 	  local file = io.open(toPath, "w")
 	  file:write(data)
 	  file:close()
 	  return true
-	else
-	  error "We Think The TOPATH Is Invalid!"
-	end
   else
-    error ("The URL:" ..url.." Cannot Be Parsed! [404]")
+    return errorMes
   end
  end
- error "An Error Occurred And The Request Timed Out [208]"
+ return errorMes
 end
