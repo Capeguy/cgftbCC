@@ -36,7 +36,7 @@ function drawTitleBar()
   term.clearLine()
   term.setTextColor(256)
   write "Startup"
-  checkStartKey()
+  --checkStartKey()
 end
 
 function loadAPIs()  --Auto Loads ALL APIs It Can As Long As They Are In /api
