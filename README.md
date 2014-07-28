@@ -21,7 +21,8 @@ If a new file was to be added, edit the file in /systemFiles/Install/updater und
 add a line:
 
 
-download.git("<raw link to git file>", "<location to place in CC com>")
+```lua
+download.git("[raw link to git file]", "[location to place in CC com]")
 
 
 Make sure that whenever a change is made in the version file (/version), edit the 1st line and increment the digit by 1.
