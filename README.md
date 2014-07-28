@@ -10,7 +10,7 @@ ComputerCraft programs for the cgftb server
 On a CC Computer, run the shell command
 
 
-```
+```shell
 pastebin run yVbizg0A
 ```
 
@@ -32,7 +32,13 @@ if not download.git("[raw link to git file]", "[location to place in CC com]") t
 ```
 
 
-Make sure that whenever a change is made in the version file (/version), edit the 1st line and increment the digit by 1.
+**Push the update the CC computers**
+
+
+If you wish to push the update to the ComputerCraft computers running this "OS", update the version file (/version)
+
+
+To do so, open the file and edit the 1st line and increment the digit by 1.
 
 
 For eg. Major update, increment the 1st number (0.0.0.1 -> 1.0.0.0), Minor update increment 2nd number (0.0.0.1 -> 0.1.0.0)
