@@ -89,8 +89,9 @@ if update.Check() then
   elseif not update.Check() then
     PrintCentered("You Are Running The Latest STABLE Version!", 19)
 	--beta() --Remove when no longer a BETA build!
-	printer.centered("Reading Config File..", 19)
-	sleep(0.1)
+	printer.centered("Loaded! Entering shell in 5 seconds", 19)
+	sleep(5)
 	return true
 end
+shell.run("clear")
 print("Launching CraftOS...")
