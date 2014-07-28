@@ -36,7 +36,6 @@ function drawTitleBar()
   term.clearLine()
   term.setTextColor(256)
   write "Startup"
-  --checkStartKey()
 end
 
 function loadAPIs()  --Auto Loads ALL APIs It Can As Long As They Are In /api
@@ -81,15 +80,11 @@ if update.Check() then
 	sleep(1)
 	PrintCentered("Download Complete, Running Updater",18)
 	sleep(0)
-	--local f = fs.open('systemFiles/Install/updateConfig', 'r')
-	--useSettingQuiet = f.readLine()
-	--f.close()
 	shell.run("systemFiles/Install/updater", "quiet")
 	errora.err(nil, "The Updater Experienced An Unknown Exception, Or It Ended With No Protocol, If the issue persists, report it")
   elseif not update.Check() then
     PrintCentered("You Are Running The Latest STABLE Version!", 19)
     sleep(2)
-	--beta() --Remove when no longer a BETA build!
 	printer.centered("Loaded! Entering shell in 5 seconds", 19)
 	sleep(5)
     shell.run("clear")

@@ -1,4 +1,4 @@
-0.0.0.2
+0.0.0.3
 
 --STABLE BUILD!
 
@@ -9,6 +9,14 @@ computer will update continuously
 
 --------------------------
 --This Version ChangeLog--
+--------------------------
+
+-- Improved Updater Script
+-- Removed redundant stuff
+
+
+--------------------------
+--Old Version ChangeLogs--
 --------------------------
 
 -- Go to git according to Capeguy's request ._.

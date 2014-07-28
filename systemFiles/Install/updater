@@ -84,6 +84,7 @@ download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/LICENSE",
 download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/systemFiles/Install/updater", "systemFiles/Install/updater")
 download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/startup", "startup")
 download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/version", "version")
+PrintCentered("Download Complete! Rebooting...", 6)
 if quietDownload then os.reboot() else return true end
 end
 
