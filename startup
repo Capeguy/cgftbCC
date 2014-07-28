@@ -81,9 +81,9 @@ if update.Check() then
 	sleep(1)
 	PrintCentered("Download Complete, Running Updater",18)
 	sleep(0)
-	local f = fs.open('systemFiles/Install/updateConfig', 'r')
-	useSettingQuiet = f.readLine()
-	f.close()
+	--local f = fs.open('systemFiles/Install/updateConfig', 'r')
+	--useSettingQuiet = f.readLine()
+	--f.close()
 	shell.run("systemFiles/Install/updater", "quiet")
 	errora.err(nil, "The Updater Experienced An Unknown Exception, Or It Ended With No Protocol, If the issue persists, report it")
   elseif not update.Check() then
