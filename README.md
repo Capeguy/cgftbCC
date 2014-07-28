@@ -10,9 +10,9 @@ ComputerCraft programs for the cgftb server
 On a CC Computer, run the shell command
 
 
-'''
+```
 "pastebin run yVbizg0A"
-'''
+```
 
 
 and then follow the instructions
