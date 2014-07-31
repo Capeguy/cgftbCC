@@ -39,10 +39,10 @@ else
             arrayID[times+1] = a[4]
 
             -- Check if started to display more than 5 or not
-            if runthrough == 6 then
+            if runthrough == 5 then
                 runthrough = 0
             end
-            if times <= 5 then
+            if times < 5 then
                 --Displaying on screen
                 m.setCursorPos(1,1+(runthrough*8))
                 m.write("--------------------------")
@@ -61,7 +61,7 @@ else
                 m.write("Percentage: " ..percentile)
                 runthrough = runthrough + 1
                 times = times + 1
-            elseif times <= 10 then
+            elseif times < 10 then
                 --Displaying on screen
                 m.setCursorPos(31,1+(runthrough*8))
                 m.write("--------------------------")
