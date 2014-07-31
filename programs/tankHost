@@ -1,0 +1,62 @@
+local args = { ... }
+t = peripheral.wrap("right")
+ 
+tanktile = tostring(args[1])
+ 
+m = peripheral.wrap("rcirontankvalvetile_"..tanktile)        --Iron Tank
+mon = peripheral.wrap("top")
+ 
+local function Usage()
+print("USAGE: host <valveid>")
+end
+ 
+-- loop so constantly updates
+rednet.open("top")
+if #args > 1 or #args < 1 then
+Usage()
+return
+end
+ 
+while true do
+print("Waiting for start...")
+local senderId, message, distance = rednet.receive()
+        if message == "tankstats" then
+                print("Received message to Transmit Tank Statistics")
+                tanksTable = m.getTankInfo("unknown")
+                maintank = tanksTable[1] -- gets data for tank
+ 
+                -- Sends Amount to client
+            cap = maintank.capacity
+                amt = maintank.amount
+                name = maintank.name
+                comName = os.getComputerID()
+                if cap == null then
+                cap = "NULL"
+                end
+                if amt == null then
+                amt = "NULL"
+                end
+                if name == null then
+                name = "NULL"
+                end
+                rednet.send(senderId, name.." "..cap.." "..amt.." "..comName)
+                print("Awaiting ack message to send another")
+                while true do
+                        local senderId1, message1, distance1 = rednet.receive(10)
+                        if message1 == null then
+                                print("Resending")
+                                rednet.send(senderId, name.." "..cap.." "..amt.." "..comName)
+                                print("Awaiting ack message to send another")
+                        else if message1 == "tankack" then
+                                print("Acknowledged message... Leaving loop")
+                                break
+                        end
+                end
+ 
+        end
+end
+-- waits 1 second
+                print("Going to sleep")
+                sleep(1)
+                print("Awake! Lets move on!")
+end

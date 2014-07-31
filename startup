@@ -96,7 +96,7 @@ if fs.exists("defaultstart") then
     sleep(2)
     shell.run("defaultstart")
 else
-    print("No Default Script found! To make a default script, create a file 'defaultstart'")
+    print("No Default Script found! To make a default script, create a file 'defaultstart' and write the script there!")
 end
 return true
 end

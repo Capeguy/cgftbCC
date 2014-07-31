@@ -1,4 +1,4 @@
-0.1.1.0
+0.1.2.0
 
 --STABLE BUILD!
 
@@ -11,6 +11,7 @@ computer will update continuously
 --This Version ChangeLog--
 --------------------------
 
+-- Added Tank Host/Client programs
 -- Updated startup script to allow default startup!
 
 --------------------------

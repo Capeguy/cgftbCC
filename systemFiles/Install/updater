@@ -86,6 +86,8 @@ if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/LI
 if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/systemFiles/Install/updater", "systemFiles/Install/updater") then return errMess end
 if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/startup", "startup") then return errMess end
 if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/version", "version") then return errMess end
+if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/programs/tankClient", "programs/tankClient") then return errMess end
+if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/programs/tankHost", "programs/tankHost") then return errMess end
 PrintCentered("Download Complete! Rebooting in 5 seconds...", 6)
 local f = fs.open("version", "r")
   vCurrent = f.readLine()

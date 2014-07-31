@@ -1,0 +1,63 @@
+rednet.open("left")
+--To display to monitor 
+m = peripheral.wrap("top")
+ 
+duration = 30
+noOfRecieve = 3 --Change this for number of tanks to recieve a request from
+times = 0
+--Sending request
+while true do
+        m.clear()
+        rednet.broadcast("tankstats")
+        while times < (noOfRecieve) do
+                print("Getting from Tank "..times)
+                local senderId, message, distance = rednet.receive()
+                i = 1
+                -- Split string
+                a = {}
+               
+                for word in message:gmatch("%w+") do
+                        a[i] = word
+                        i = i + 1
+                end
+               
+                percentile = math.ceil(((a[3]/a[2])*100)-0.5)
+               
+                -- Add to array for future processing
+                arrayAmt = {}
+                arrayName = {}
+                arrayID = {}
+                arrayTresh = {}
+                arrayPercentile = {}
+               
+                arrayAmt[times+1] = a[3]
+                arrayName[times+1] = a[1]
+                arrayID[times+1] = a[4]
+               
+                --Displaying on screen
+                m.setCursorPos(1,1+(times*8))
+                m.write("--------------------------")
+                m.setCursorPos(1,2+(times*8))
+                m.write("     "..a[1].." Tank Stats     ")
+                m.setCursorPos(1,3+(times*8))
+                m.write("--------------------------")
+                m.setCursorPos(1,5+(times*8))
+                m.write("Computer ID: "..a[4])
+                m.setCursorPos(1,6+(times*8))
+                m.write("Capacity: " ..a[2])
+                m.setCursorPos(1,7+(times*8))
+                m.write("Amount: " ..a[3])
+                rednet.send(senderId, "tankack")
+                m.setCursorPos(1,8 + (times*8))
+                m.write("Percentage: " ..percentile)
+                times = times + 1
+        end
+        sleep(2)
+        for i=1,duration do
+                                        m.setCursorPos(1,26)
+                                        timeLeft = duration - i
+                                        m.write("Refreshing in " ..timeLeft.. " seconds...")
+                                        sleep(1)
+                        end
+        times = 0
+end
