@@ -100,10 +100,10 @@ else
         end
         sleep(2)
         for i=1,duration do
-        m.setCursorPos(1,40)
-        timeLeft = duration - i
-        m.write("Refreshing in " ..timeLeft.. " seconds...")
-        sleep(1)
+            m.setCursorPos(1,40)
+            timeLeft = duration - i
+            m.write("Refreshing in " ..timeLeft.. " seconds...")
+            sleep(1)
         end
         times = 0
     end
