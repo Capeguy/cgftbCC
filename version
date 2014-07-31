@@ -1,4 +1,4 @@
-0.1.2.6
+0.1.2.7
 
 --STABLE BUILD!
 
@@ -11,6 +11,8 @@ computer will update continuously
 --This Version ChangeLog--
 --------------------------
 
+-- I SHOULDNT HAVE USED TIMES. DERPED THE PROGRAM LIKE SHIIIIT
+-- Fixed by using new var
 -- tankClient errored as i had too many ends
 -- Update tankClient to improve displaying on screen (it will move to another screen section if overflow)
 -- Tank Host update (prevent string exception)
