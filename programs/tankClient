@@ -41,20 +41,20 @@ while true do
                 m.write("     "..a[1].." Tank Stats     ")
                 m.setCursorPos(1,3+(times*8))
                 m.write("--------------------------")
-                m.setCursorPos(1,5+(times*8))
+                m.setCursorPos(1,4+(times*8))
                 m.write("Computer ID: "..a[4])
-                m.setCursorPos(1,6+(times*8))
+                m.setCursorPos(1,5+(times*8))
                 m.write("Capacity: " ..a[2])
-                m.setCursorPos(1,7+(times*8))
+                m.setCursorPos(1,6+(times*8))
                 m.write("Amount: " ..a[3])
                 rednet.send(senderId, "tankack")
-                m.setCursorPos(1,8 + (times*8))
+                m.setCursorPos(1,7 + (times*8))
                 m.write("Percentage: " ..percentile)
                 times = times + 1
         end
         sleep(2)
         for i=1,duration do
-                                        m.setCursorPos(1,26)
+                                        m.setCursorPos(1,40)
                                         timeLeft = duration - i
                                         m.write("Refreshing in " ..timeLeft.. " seconds...")
                                         sleep(1)
