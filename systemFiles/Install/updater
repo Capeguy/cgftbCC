@@ -81,6 +81,7 @@ if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/ap
 if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/api/printer", "/api/printer") then return errMess end
 if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/api/titleBar", "/api/titleBar") then return errMess end
 if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/api/errora", "/api/errora") then return errMess end
+if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/api/egps", "/api/egps") then return errMess end
 if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/README.md", "/Documentation/README") then return errMess end
 if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/LICENSE", "/Documentation/LICENSE") then return errMess end
 if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/systemFiles/Install/updater", "systemFiles/Install/updater") then return errMess end
@@ -88,6 +89,7 @@ if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/st
 if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/version", "version") then return errMess end
 if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/programs/tankClient", "programs/tankClient") then return errMess end
 if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/programs/tankHost", "programs/tankHost") then return errMess end
+if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/programs/test", "programs/test") then return errMess end
 PrintCentered("Download Complete! Rebooting in 5 seconds...", 6)
 local f = fs.open("version", "r")
   vCurrent = f.readLine()
