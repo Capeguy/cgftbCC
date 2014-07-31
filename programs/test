@@ -1,0 +1,3 @@
+print("Hello World")
+cgps.startGPS()
+cgps.moveTo(200, 20, 400)
