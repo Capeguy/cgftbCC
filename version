@@ -1,4 +1,4 @@
-0.1.2.0
+0.1.2.2
 
 --STABLE BUILD!
 
@@ -11,7 +11,9 @@ computer will update continuously
 --This Version ChangeLog--
 --------------------------
 
+-- Tank Host update (prevent string exception)
 -- Added Tank Host/Client programs
+-- Change number of tanks client will await replies from
 -- Updated startup script to allow default startup!
 
 --------------------------

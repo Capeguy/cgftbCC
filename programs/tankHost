@@ -26,15 +26,15 @@ local senderId, message, distance = rednet.receive()
                 maintank = tanksTable[1] -- gets data for tank
  
                 -- Sends Amount to client
-            cap = maintank.capacity
+                cap = maintank.capacity
                 amt = maintank.amount
                 name = maintank.name
                 comName = os.getComputerID()
                 if cap == null then
-                cap = "NULL"
+                cap = 0
                 end
                 if amt == null then
-                amt = "NULL"
+                amt = 0
                 end
                 if name == null then
                 name = "NULL"
