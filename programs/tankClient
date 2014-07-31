@@ -3,7 +3,7 @@ rednet.open("left")
 m = peripheral.wrap("top")
  
 duration = 30
-noOfRecieve = 3 --Change this for number of tanks to recieve a request from
+noOfRecieve = 10 --Change this for number of tanks to recieve a request from
 times = 0
 --Sending request
 while true do

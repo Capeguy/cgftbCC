@@ -1,4 +1,4 @@
-0.1.2.0
+0.1.2.1
 
 --STABLE BUILD!
 
@@ -12,6 +12,7 @@ computer will update continuously
 --------------------------
 
 -- Added Tank Host/Client programs
+-- Change number of tanks client will await replies from
 -- Updated startup script to allow default startup!
 
 --------------------------
