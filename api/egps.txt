@@ -1,0 +1,466 @@
+-- This library provide high level turtle movement functions.
+--
+-- Before being able to use them, you should start the GPS with egps.startGPS()
+--    then get your current location with egps.setLocationFromGPS().
+-- egps.forward(), egps.back(), egps.up(), egps.down(), egps.turnLeft(), egps.turnRight()
+--    replace the standard turtle functions. 
+-- If you need to use the standard functions, you
+--    should call egps.setLocationFromGPS() again before using any egps functions.
+
+-- Gist at: https://gist.github.com/SquidLord/4741746
+
+function empty(table)
+  for _, value in pairs(table) do
+    if value ~= nil then
+          return false
+    end
+  end
+  return true
+end
+
+-- Cache of the current turtle position and direction
+local cachedX, cachedY, cachedZ, cachedDir
+
+-- Directions
+North, West, South, East, Up, Down = 0, 1, 2, 3, 4, 5
+local shortNames = {[North] = "N", [West] = "W", [South] = "S",
+                                    [East] = "E", [Up] = "U", [Down] = "D" }
+local deltas = {[North] = {0, 0, -1}, [West] = {-1, 0, 0}, [South] = {0, 0, 1},
+                            [East] = {1, 0, 0}, [Up] = {0, 1, 0}, [Down] = {0, -1, 0}}
+
+-- cache world geometry
+local cachedWorld = {}
+
+-- A* parameters
+local stopAt, nilCost = 1500, 1000
+
+----------------------------------------
+-- detectAll
+--
+-- function: Detect in all possible directions
+--
+
+function detectAll()
+  local F, U, D = deltas[cachedDir], deltas[Up], deltas[Down]
+
+  cachedWorld[cachedX..":"..cachedY..":"..cachedZ] = 0
+  if not turtle.detect()         then cachedWorld[(cachedX + F[1])..":"..(cachedY + F[2])..":"..(cachedZ + F[3])] = 0 end
+  if not turtle.detectUp()   then cachedWorld[(cachedX + U[1])..":"..(cachedY + U[2])..":"..(cachedZ + U[3])] = 0 end
+  if not turtle.detectDown() then cachedWorld[(cachedX + D[1])..":"..(cachedY + D[2])..":"..(cachedZ + D[3])] = 0 end
+end
+ 
+----------------------------------------
+-- forward
+--
+-- function: Move the turtle forward if possible and put the result in cache
+-- return: boolean "success"
+--
+
+function forward()
+  local D = deltas[cachedDir]
+  local x, y, z = cachedX + D[1], cachedY + D[2], cachedZ + D[3]
+  local idx_pos = x..":"..y..":"..z
+ 
+  if turtle.forward() then
+    cachedX, cachedY, cachedZ = x, y, z
+    detectAll()
+    return true
+  else
+    cachedWorld[idx_pos] = (turtle.detect() and 1 or 0.5)
+    return false
+  end
+end
+
+----------------------------------------
+-- back
+--
+-- function: Move the turtle backward if possible and put the result in cache
+-- return: boolean "success"
+--
+
+function back()
+  local D = deltas[cachedDir]
+  local x, y, z = cachedX - D[1], cachedY - D[2], cachedZ - D[3]
+  local idx_pos = x..":"..y..":"..z
+
+  if turtle.back() then
+    cachedX, cachedY, cachedZ = x, y, z
+    detectAll()
+    return true
+  else
+    cachedWorld[idx_pos] = 0.5
+    return false
+  end
+end
+
+----------------------------------------
+-- up
+--
+-- function: Move the turtle up if possible and put the result in cache
+-- return: boolean "success"
+--
+
+function up()
+  local D = deltas[Up]
+  local x, y, z = cachedX + D[1], cachedY + D[2], cachedZ + D[3]
+  local idx_pos = x..":"..y..":"..z
+
+  if turtle.up() then
+    cachedX, cachedY, cachedZ = x, y, z
+    detectAll()
+    return true
+  else
+    cachedWorld[idx_pos] = (turtle.detectUp() and 1 or 0.5)
+    return false
+  end
+end
+
+----------------------------------------
+-- down
+--
+-- function: Move the turtle down if possible and put the result in cache
+-- return: boolean "success"
+--
+
+function down()
+  local D = deltas[Down]
+  local x, y, z = cachedX + D[1], cachedY + D[2], cachedZ + D[3]
+  local idx_pos = x..":"..y..":"..z
+
+  if turtle.down() then
+    cachedX, cachedY, cachedZ = x, y, z
+    detectAll()
+    return true
+  else
+    cachedWorld[idx_pos] = (turtle.detectDown() and 1 or 0.5)
+    return false
+  end
+end
+
+----------------------------------------
+-- turnLeft
+--
+-- function: Turn the turtle to the left and put the result in cache
+-- return: boolean "success"
+--
+
+function turnLeft()
+  cachedDir = (cachedDir + 1) % 4
+  turtle.turnLeft()
+  detectAll()
+  return true
+end
+
+----------------------------------------
+-- turnRight
+--
+-- function: Turn the turtle to the right and put the result in cache
+-- return: boolean "success"
+--
+
+function turnRight()
+  cachedDir = (cachedDir + 3) % 4
+  turtle.turnRight()
+  detectAll()
+  return true
+end
+
+----------------------------------------
+-- turnTo
+--
+-- function: Turn the turtle to the choosen direction and put the result in cache
+-- input: number _targetDir
+-- return: boolean "success"
+--
+
+function turnTo(_targetDir)
+  if _targetDir == cachedDir then
+    return true
+  elseif ((_targetDir - cachedDir + 4) % 4) == 1 then
+    turnLeft()
+  elseif ((cachedDir - _targetDir + 4) % 4) == 1 then
+    turnRight()
+  else
+    turnLeft()
+    turnLeft()
+  end
+  return true
+end
+
+----------------------------------------
+-- clearWorld
+--
+-- function: Clear the world cache
+--
+
+function clearWorld()
+  cachedWorld = {}
+  detectAll()
+end
+
+----------------------------------------
+-- heuristic_cost_estimate
+--
+-- function: A* heuristic
+-- input: X, Y, Z of the 2 points
+-- return: Manhattan distance between the 2 points
+--
+
+local function heuristic_cost_estimate(x1, y1, z1, x2, y2, z2)
+  return math.abs(x2 - x1) + math.abs(y2 - y1) + math.abs(z2 - z1)
+end
+
+----------------------------------------
+-- reconstruct_path
+--
+-- function: A* path reconstruction
+-- input: A* visited nodes and goal
+-- return: List of movement to be executed
+--
+
+local function reconstruct_path(_cameFrom, _currentNode)
+  if _cameFrom[_currentNode] ~= nil then
+    local dir, nextNode = _cameFrom[_currentNode][1], _cameFrom[_currentNode][2]
+    local path = reconstruct_path(_cameFrom, nextNode)
+    table.insert(path, dir)
+    return path
+  else
+    return {}
+  end
+end
+
+----------------------------------------
+-- a_star
+--
+-- function: A* path finding
+-- input: start and goal coordinates
+-- return: List of movement to be executed
+--
+
+local function a_star(x1, y1, z1, x2, y2, z2, discover)
+  discover = discover or 1
+  local start, idx_start = {x1, y1, z1}, x1..":"..y1..":"..z1
+  local goal,  idx_goal  = {x2, y2, z2}, x2..":"..y2..":"..z2
+
+  if (cachedWorld[idx_goal] or 0) == 0 then
+    local openset, closedset, cameFrom, g_score, f_score, tries = {}, {}, {}, {}, {}, 0
+
+    openset[idx_start] = start
+    g_score[idx_start] = 0
+    f_score[idx_start] = heuristic_cost_estimate(x1, y1, z1, x2, y2, z2)
+
+    while not empty(openset) do
+          local current, idx_current
+          local cur_f = 9999999
+            
+          for idx_cur, cur in pairs(openset) do
+            if cur ~= nil and f_score[idx_cur] <= cur_f then
+                  idx_current, current, cur_f = idx_cur, cur, f_score[idx_cur]
+            end
+          end
+          if idx_current == idx_goal then
+            return reconstruct_path(cameFrom, idx_goal)
+          end
+
+          -- no more than 500 moves
+          if cur_f >= stopAt then
+            break
+          end
+            
+          openset[idx_current] = nil
+          closedset[idx_current] = true
+            
+          local x3, y3, z3 = current[1], current[2], current[3]
+
+          for dir = 0, 5 do -- for all direction find the neighbor of the current position
+            local D = deltas[dir]
+            local x4, y4, z4 = x3 + D[1], y3 + D[2], z3 + D[3]
+            local neighbor, idx_neighbor = {x4, y4, z4}, x4..":"..y4..":"..z4
+            if (cachedWorld[idx_neighbor] or 0) == 0 then -- if its free or unknow
+                  if closedset[idx_neighbor] == nil then
+                    local tentative_g_score = g_score[idx_current] + ((cachedWorld[idx_neighbor] == nil) and discover or 1)
+                    if openset[idx_neighbor] == nil or tentative_g_score <= g_score[idx_neighbor] then
+                          cameFrom[idx_neighbor] = {dir, idx_current}
+                          g_score[idx_neighbor] = tentative_g_score
+                          f_score[idx_neighbor] = tentative_g_score + heuristic_cost_estimate(x4, y4, z4, x2, y2, z2)
+                          openset[idx_neighbor] = neighbor
+                    end
+                  end
+            end
+          end
+    end
+  end
+  print("no path found")
+  return {}
+end
+
+----------------------------------------
+-- moveTo
+--
+-- function: Move the turtle to the choosen coordinates in the world
+-- input: X, Y, Z and direction of the goal
+-- return: boolean "success"
+--
+
+function moveTo(_targetX, _targetY, _targetZ, _targetDir, changeDir, discover)
+  changeDir = (changeDir == nil) and true or changeDir
+  while cachedX ~= _targetX or cachedY ~= _targetY or cachedZ ~= _targetZ do
+    local path = a_star(cachedX, cachedY, cachedZ, _targetX, _targetY, _targetZ, discover)
+    if #path == 0 then
+          return false
+    end
+    for i, dir in ipairs(path) do
+          if dir == Up then
+            if not up() then
+                  break
+            end
+          elseif dir == Down then
+            if not down() then
+                  break
+            end
+          else
+            turnTo(dir)
+            if not forward() then
+                  break
+            end
+          end
+    end
+  end
+  if changeDir then
+    turnTo(_targetDir)
+  end
+  return true
+end
+
+----------------------------------------
+-- discoverWorld
+--
+-- function: Move the turtle to the choosen coordinates in the world
+-- input: size of the cuboid to check
+--
+
+function discoverWorld(_range)
+  local x, y, z, d = locate()
+ 
+  -- Try to go to every location in the cuboid
+  for r = 1, _range do
+    for dx = -r, r do
+          for dy = -r, r do
+            for dz = -r, r do
+                  local idx_goal = (x+dx)..":"..(y+dy)..":"..(z+dz)
+                  if cachedWorld[idx_goal] == nil then
+                    moveTo(x+dx, y+dy, z+dz, cachedDir, false, nilCost)
+                    sleep(0.01)
+                  end
+            end
+          end
+    end
+  end
+
+  -- Go back to the starting point  
+  moveTo(x, y, z, d)
+end
+
+----------------------------------------
+-- setLocation
+--
+-- function: Set the current X, Y, Z and direction of the turtle
+--
+
+function setLocation(x, y, z, d)
+  cacheX, cacheY, cacheZ, cacheDir = x, y, z, d
+  return cacheX, cacheY, cacheZ, cacheDir
+end
+
+----------------------------------------
+-- startGPS
+--
+-- function: Open the rednet network
+-- return: boolean "success"
+--
+
+function startGPS()
+    local netOpen, modemSide = false, nil
+ 
+    for _, side in pairs(rs.getSides()) do    -- for all sides
+        if peripheral.getType(side) == "modem" then  -- find the modem
+            modemSide = side
+            if rednet.isOpen(side) then  -- check its status
+                netOpen = true
+                break
+            end
+        end
+    end
+
+    if not netOpen then  -- if the rednet network is not open
+        if modemSide then  -- and we found a modem, open the rednet network
+            rednet.open(modemSide)
+        else
+            print("No modem found")
+            return false
+        end
+    end
+    return true
+end
+
+----------------------------------------
+-- setGPSLocation
+--
+-- function: Retrieve the turtle GPS position and direction (if possible)
+-- return: current X, Y, Z and direction of the turtle
+--
+
+function setLocationFromGPS()
+  if startGPS() then
+    -- get the current position
+    cachedX, cachedY, cachedZ  = gps.locate(4, false)
+    cachedDir = nil
+ 
+    -- determine the current direction
+    for tries = 0, 3 do  -- try to move in one direction
+          if turtle.forward() then
+            local newX, _, newZ = gps.locate(4, false) -- get the new position
+            turtle.back()                                                         -- and go back
+
+            -- deduce the curent direction
+            if newZ < cachedZ then
+                  cachedDir = North -- North
+            elseif newZ > cachedZ then
+                  cachedDir = South -- South
+            elseif newX < cachedX then
+                  cachedDir = West -- West
+            elseif newX > cachedX then
+                  cachedDir = East -- East
+            end
+
+            -- Cancel out the tries
+            turnTo((cachedDir - tries + 4) % 4)
+ 
+            -- exit the loop
+            break
+
+          else -- try in another direction
+            tries = tries + 1
+            turtle.turnLeft()
+          end
+    end
+
+    if cachedDir == nil then
+          print("Could not determine direction")
+    end
+ 
+    -- Return the current turtle position
+    return cachedX, cachedY, cachedZ, cachedDir
+  end
+end
+
+----------------------------------------
+-- getLocation
+--
+-- function: Retrieve the cached turtle position and direction
+-- return: cached X, Y, Z and direction of the turtle
+--
+
+function getLocation()
+  return cachedX, cachedY, cachedZ, cachedDir
+end
