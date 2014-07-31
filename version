@@ -1,4 +1,4 @@
-0.1.2.2
+0.1.2.3
 
 --STABLE BUILD!
 
@@ -11,6 +11,7 @@ computer will update continuously
 --This Version ChangeLog--
 --------------------------
 
+-- Update tankClient to improve displaying on screen (it will move to another screen section if overflow)
 -- Tank Host update (prevent string exception)
 -- Added Tank Host/Client programs
 -- Change number of tanks client will await replies from
