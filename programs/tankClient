@@ -59,7 +59,6 @@ else
                 m.setCursorPos(1,7 + (times*8))
                 m.write("Percentage: " ..percentile)
                 times = times + 1
-            end
             elseif times <= 10 then
                 --Displaying on screen
                 m.setCursorPos(31,1+(times*8))
