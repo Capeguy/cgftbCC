@@ -67,29 +67,36 @@ function loadAPIs()  --Auto Loads ALL APIs It Can As Long As They Are In /api
 end
 
 loadAPIs()
-  updateState = update.Check()
-  if updateState == true then
-    PrintCentered("An Update Has Been Detected", 19)
-	sleep(0)
-    PrintCentered("Obtaining Latest Update From GitHub", 18)
-	PrintCentered("Seeking URL", 19)
-	sleep(1)
-	PrintCentered("Parsed", 19)
-	sleep(0)
-	PrintCentered("Downloading New Updater", 19)
-	if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/systemFiles/Install/updater", "systemFiles/Install/updater") then printer.centered('Error Occured While Downloading Updater!', 19) sleep(1) os.reboot() end
-	sleep(1)
-	PrintCentered("Download Complete, Running Updater",18)
-	sleep(0)
-	shell.run("systemFiles/Install/updater", "quiet")
-	errora.err(nil, "The Updater Experienced An Unknown Exception, Or It Ended With No Protocol, If the issue persists, report it")
-  elseif updateState == false then
-    PrintCentered("You Are Running The Latest STABLE Version!", 19)
+updateState = update.Check()
+if updateState == true then
+PrintCentered("An Update Has Been Detected", 19)
+sleep(0)
+PrintCentered("Obtaining Latest Update From GitHub", 18)
+PrintCentered("Seeking URL", 19)
+sleep(1)
+PrintCentered("Parsed", 19)
+sleep(0)
+PrintCentered("Downloading New Updater", 19)
+if not download.git("https://raw.githubusercontent.com/Capeguy/cgftbCC/master/systemFiles/Install/updater", "systemFiles/Install/updater") then printer.centered('Error Occured While Downloading Updater!', 19) sleep(1) os.reboot() end
+sleep(1)
+PrintCentered("Download Complete, Running Updater",18)
+sleep(0)
+shell.run("systemFiles/Install/updater", "quiet")
+errora.err(nil, "The Updater Experienced An Unknown Exception, Or It Ended With No Protocol, If the issue persists, report it")
+elseif updateState == false then
+PrintCentered("You Are Running The Latest STABLE Version!", 19)
+sleep(2)
+printer.centered("Loaded! Entering shell in 5 seconds...", 19)
+sleep(5)
+term.setBackgroundColor(colors.black)
+term.clear()
+print("Launching CraftOS...")
+if fs.exists("defaultstart") then
+    print("Found a Default Startup script! Launching it in 2 seconds!")
     sleep(2)
-	printer.centered("Loaded! Entering shell in 5 seconds...", 19)
-	sleep(5)
-    term.setBackgroundColor(colors.black)
-    term.clear()
-    print("Launching CraftOS...")
-	return true
+    shell.run("defaultstart")
+else
+    print("No Default Script found! To make a default script, create a file 'defaultstart'")
+end
+return true
 end

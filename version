@@ -1,4 +1,4 @@
-0.1.0.1
+0.1.1.0
 
 --STABLE BUILD!
 
@@ -11,14 +11,15 @@ computer will update continuously
 --This Version ChangeLog--
 --------------------------
 
--- First Build!
--- Fixed README with instructions
--- Updated API
+-- Updated startup script to allow default startup!
 
 --------------------------
 --Old Version ChangeLogs--
 --------------------------
 
+-- First Build!
+-- Fixed README with instructions
+-- Updated API
 -- Go to git according to Capeguy's request ._.
 -- Added install script, updater script etc
 -- Made startup script successfully, testing auto update lol
