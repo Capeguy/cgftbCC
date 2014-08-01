@@ -15,10 +15,6 @@ function checkLimit()   --Checks the limit of the client
     end
 end
 
-function displayToScreen()
-    
-end
-
 if checkLimit() then
     print("An error occured. The noOfRecieve variable is more than 15. This program can only support up to 15 iron tanks.")
 else
