@@ -6,7 +6,88 @@ duration = 30
 noOfRecieve = 10 --Change this for number of tanks to recieve a request from (Max 15)
 times = 0
 runthrough = 0  -- Program uses this to write the display
-if noOfRecieve > 15 then
+
+-- Add to array for future processing
+arrayAmt = {}
+arrayName = {}
+arrayID = {}
+arrayTresh = {}
+arrayPercentile = {}
+
+function checkLimit()   --Checks the limit of the client
+    if noOfRecieve > 15 then
+        return true
+    else
+        return false
+    end
+end
+
+function displayOnMonitor(a)
+    -- Check if started to display more than 5 or not
+    if runthrough == 5 then
+        runthrough = 0
+    end
+    if times < 5 then
+        --Displaying on screen
+        m.setCursorPos(1,1+(runthrough*8))
+        m.write("--------------------------")
+        m.setCursorPos(1,2+(runthrough*8))
+        m.write("  "..a[1].." Tank Stats     ")
+        m.setCursorPos(1,3+(runthrough*8))
+        m.write("--------------------------")
+        m.setCursorPos(1,4+(runthrough*8))
+        m.write("Computer ID: "..a[4])
+        m.setCursorPos(1,5+(runthrough*8))
+        m.write("Capacity: " ..a[2])
+        m.setCursorPos(1,6+(runthrough*8))
+        m.write("Amount: " ..a[3])
+        rednet.send(senderId, "tankack")
+        m.setCursorPos(1,7 + (runthrough*8))
+        m.write("Percentage: " ..percentile)
+        runthrough = runthrough + 1
+        times = times + 1
+    elseif times < 10 then
+        --Displaying on screen
+        m.setCursorPos(31,1+(runthrough*8))
+        m.write("--------------------------")
+        m.setCursorPos(31,2+(runthrough*8))
+        m.write("  "..a[1].." Tank Stats     ")
+        m.setCursorPos(31,3+(runthrough*8))
+        m.write("--------------------------")
+        m.setCursorPos(31,4+(runthrough*8))
+        m.write("Computer ID: "..a[4])
+        m.setCursorPos(31,5+(runthrough*8))
+        m.write("Capacity: " ..a[2])
+        m.setCursorPos(31,6+(runthrough*8))
+        m.write("Amount: " ..a[3])
+        rednet.send(senderId, "tankack")
+        m.setCursorPos(31,7 + (runthrough*8))
+        m.write("Percentage: " ..percentile)
+        runthrough = runthrough + 1
+        times = times + 1
+    else
+        --Displaying on screen
+        m.setCursorPos(61,1+(runthrough*8))
+        m.write("--------------------------")
+        m.setCursorPos(61,2+(runthrough*8))
+        m.write("  "..a[1].." Tank Stats     ")
+        m.setCursorPos(61,3+(runthrough*8))
+        m.write("--------------------------")
+        m.setCursorPos(61,4+(runthrough*8))
+        m.write("Computer ID: "..a[4])
+        m.setCursorPos(61,5+(runthrough*8))
+        m.write("Capacity: " ..a[2])
+        m.setCursorPos(61,6+(runthrough*8))
+        m.write("Amount: " ..a[3])
+        rednet.send(senderId, "tankack")
+        m.setCursorPos(61,7 + (runthrough*8))
+        m.write("Percentage: " ..percentile)
+        runthrough = runthrough + 1
+        times = times + 1
+    end
+end
+
+if checkLimit() then
     print("An error occured. The noOfRecieve variable is more than 15. This program can only support up to 15 iron tanks.")
 else
     --Sending request (if more than 5 move 30 spaces off)
@@ -26,80 +107,12 @@ else
             end
 
             percentile = math.ceil(((a[3]/a[2])*100)-0.5)
-
-            -- Add to array for future processing
-            arrayAmt = {}
-            arrayName = {}
-            arrayID = {}
-            arrayTresh = {}
-            arrayPercentile = {}
-
+            
             arrayAmt[times+1] = a[3]
             arrayName[times+1] = a[1]
             arrayID[times+1] = a[4]
-
-            -- Check if started to display more than 5 or not
-            if runthrough == 5 then
-                runthrough = 0
-            end
-            if times < 5 then
-                --Displaying on screen
-                m.setCursorPos(1,1+(runthrough*8))
-                m.write("--------------------------")
-                m.setCursorPos(1,2+(runthrough*8))
-                m.write("  "..a[1].." Tank Stats     ")
-                m.setCursorPos(1,3+(runthrough*8))
-                m.write("--------------------------")
-                m.setCursorPos(1,4+(runthrough*8))
-                m.write("Computer ID: "..a[4])
-                m.setCursorPos(1,5+(runthrough*8))
-                m.write("Capacity: " ..a[2])
-                m.setCursorPos(1,6+(runthrough*8))
-                m.write("Amount: " ..a[3])
-                rednet.send(senderId, "tankack")
-                m.setCursorPos(1,7 + (runthrough*8))
-                m.write("Percentage: " ..percentile)
-                runthrough = runthrough + 1
-                times = times + 1
-            elseif times < 10 then
-                --Displaying on screen
-                m.setCursorPos(31,1+(runthrough*8))
-                m.write("--------------------------")
-                m.setCursorPos(31,2+(runthrough*8))
-                m.write("  "..a[1].." Tank Stats     ")
-                m.setCursorPos(31,3+(runthrough*8))
-                m.write("--------------------------")
-                m.setCursorPos(31,4+(runthrough*8))
-                m.write("Computer ID: "..a[4])
-                m.setCursorPos(31,5+(runthrough*8))
-                m.write("Capacity: " ..a[2])
-                m.setCursorPos(31,6+(runthrough*8))
-                m.write("Amount: " ..a[3])
-                rednet.send(senderId, "tankack")
-                m.setCursorPos(31,7 + (runthrough*8))
-                m.write("Percentage: " ..percentile)
-                runthrough = runthrough + 1
-                times = times + 1
-            else
-                --Displaying on screen
-                m.setCursorPos(61,1+(runthrough*8))
-                m.write("--------------------------")
-                m.setCursorPos(61,2+(runthrough*8))
-                m.write("  "..a[1].." Tank Stats     ")
-                m.setCursorPos(61,3+(runthrough*8))
-                m.write("--------------------------")
-                m.setCursorPos(61,4+(runthrough*8))
-                m.write("Computer ID: "..a[4])
-                m.setCursorPos(61,5+(runthrough*8))
-                m.write("Capacity: " ..a[2])
-                m.setCursorPos(61,6+(runthrough*8))
-                m.write("Amount: " ..a[3])
-                rednet.send(senderId, "tankack")
-                m.setCursorPos(61,7 + (runthrough*8))
-                m.write("Percentage: " ..percentile)
-                runthrough = runthrough + 1
-                times = times + 1
-            end
+            
+            displayOnMonitor(a)
         end
         sleep(2)
         for i=1,duration do

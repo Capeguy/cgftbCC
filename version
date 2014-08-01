@@ -1,4 +1,4 @@
-0.1.2.8
+0.1.2.9
 
 --STABLE BUILD!
 
@@ -11,6 +11,7 @@ computer will update continuously
 --This Version ChangeLog--
 --------------------------
 
+-- Testing out methodizing tankClient
 -- Realized my code was displaying 6 per line instead of 5 per line
 -- I SHOULDNT HAVE USED TIMES. DERPED THE PROGRAM LIKE SHIIIIT
 -- Fixed by using new var
