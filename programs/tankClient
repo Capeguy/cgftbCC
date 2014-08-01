@@ -7,13 +7,6 @@ noOfRecieve = 10 --Change this for number of tanks to recieve a request from (Ma
 times = 0
 runthrough = 0  -- Program uses this to write the display
 
--- Add to array for future processing
-arrayAmt = {}
-arrayName = {}
-arrayID = {}
-arrayTresh = {}
-arrayPercentile = {}
-
 function checkLimit()   --Checks the limit of the client
     if noOfRecieve > 15 then
         return true
@@ -107,6 +100,13 @@ else
             end
 
             percentile = math.ceil(((a[3]/a[2])*100)-0.5)
+            
+            -- Add to array for future processing
+            arrayAmt = {}
+            arrayName = {}
+            arrayID = {}
+            arrayTresh = {}
+            arrayPercentile = {}
             
             arrayAmt[times+1] = a[3]
             arrayName[times+1] = a[1]
