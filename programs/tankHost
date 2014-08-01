@@ -7,7 +7,7 @@ m = peripheral.wrap("rcirontankvalvetile_"..tanktile)        --Iron Tank
 mon = peripheral.wrap("top")
  
 local function Usage()
-print("USAGE: host <valveid>")
+print("USAGE: host <valve id>")
 end
 
 function firstToUpper(str)

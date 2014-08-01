@@ -9,10 +9,10 @@ function err(code, reason)
   term.setBackgroundColor(colors.blue)
   term.setTextColor(1)
   term.clear()
-  titleBar.draw("HbombOS Security Suite", "Crash handling", colors.cyan, colors.red, 128, colors.blue, 1) --Syntax: Text, Subtext, Text Color, SubText Color, Bg Color, DefaultBGcolor, DefaultTextColor
-    printer.centered("HbombOS Security Suite", 4)
-    printer.centered("The Suite Has Encountered An Unexpected Error", 5)
-    printer.centered("To Protect Against Intruders The Suite",7) 
+  titleBar.draw("CGFTB CC OS", "Crash handling", colors.cyan, colors.red, 128, colors.blue, 1) --Syntax: Text, Subtext, Text Color, SubText Color, Bg Color, DefaultBGcolor, DefaultTextColor
+    printer.centered("CGFTB CC OS", 4)
+    printer.centered("The OS Has Encountered An Unexpected Error", 5)
+    printer.centered("To Protect Against Intruders The OS",7) 
 	printer.centered("Has Called This Error", 8)
 	code = code or "No Code Provided"
 	reason = reason or "No Description Provided"

@@ -1,4 +1,4 @@
-0.1.2.16
+0.1.3.0
 
 --STABLE BUILD!
 
@@ -9,6 +9,12 @@ computer will update continuously
 
 --------------------------
 --This Version ChangeLog--
+--------------------------
+
+-- Fixed grammar and spelling and promote to BETA Build
+
+--------------------------
+--Old Version ChangeLogs--
 --------------------------
 
 -- Making the output from host nicer and trying client again
@@ -23,11 +29,6 @@ computer will update continuously
 -- Added Tank Host/Client programs
 -- Change number of tanks client will await replies from
 -- Updated startup script to allow default startup!
-
---------------------------
---Old Version ChangeLogs--
---------------------------
-
 -- First Build!
 -- Fixed README with instructions
 -- Updated API

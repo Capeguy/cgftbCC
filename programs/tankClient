@@ -81,7 +81,7 @@ function displayScreen()
 end
 
 if checkLimit() then
-    print("An error occured. The noOfRecieve variable is more than 15. This program can only support up to 15 iron tanks.")
+    print("An error occurred. The noOfRecieve variable is more than 15. This program can only support up to 15 iron tanks.")
 else
     --Sending request (if more than 5 move 30 spaces off)
     while true do
