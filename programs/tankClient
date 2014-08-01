@@ -37,7 +37,6 @@ function displayScreen()
         m.write("Capacity: " ..a[2])
         m.setCursorPos(1,6+(runthrough*8))
         m.write("Amount: " ..a[3])
-        rednet.send(senderId, "tankack")
         m.setCursorPos(1,7 + (runthrough*8))
         m.write("Percentage: " ..percentile)
         runthrough = runthrough + 1
@@ -56,7 +55,6 @@ function displayScreen()
         m.write("Capacity: " ..a[2])
         m.setCursorPos(31,6+(runthrough*8))
         m.write("Amount: " ..a[3])
-        rednet.send(senderId, "tankack")
         m.setCursorPos(31,7 + (runthrough*8))
         m.write("Percentage: " ..percentile)
         runthrough = runthrough + 1
@@ -75,7 +73,6 @@ function displayScreen()
         m.write("Capacity: " ..a[2])
         m.setCursorPos(61,6+(runthrough*8))
         m.write("Amount: " ..a[3])
-        rednet.send(senderId, "tankack")
         m.setCursorPos(61,7 + (runthrough*8))
         m.write("Percentage: " ..percentile)
         runthrough = runthrough + 1
@@ -116,6 +113,7 @@ else
             arrayID[times+1] = a[4]
             
             displayScreen()
+            rednet.send(senderId, "tankack")
             
         end
         sleep(2)
