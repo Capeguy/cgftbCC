@@ -32,7 +32,7 @@ local senderId, message, distance = rednet.receive()
                 -- Sends Amount to client
                 cap = maintank.capacity
                 amt = maintank.amount
-                name = firstToUpper(maintank.name)
+                name = maintank.name
                 comName = os.getComputerID()
                 if cap == null then
                 cap = 0
@@ -42,6 +42,8 @@ local senderId, message, distance = rednet.receive()
                 end
                 if name == null then
                 name = "Empty"
+                else
+                name = firstToUpper(name)
                 end
                 rednet.send(senderId, name.." "..cap.." "..amt.." "..comName)
                 print("Awaiting ack message to send another")
