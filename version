@@ -1,4 +1,4 @@
-0.1.2.13
+0.1.2.14
 
 --STABLE BUILD!
 
@@ -11,6 +11,7 @@ computer will update continuously
 --This Version ChangeLog--
 --------------------------
 
+-- Making the output from host nicer and trying client again
 -- Rollbacking display tankClient on monitor
 -- Testing out methodizing tankClient
 -- Realized my code was displaying 6 per line instead of 5 per line

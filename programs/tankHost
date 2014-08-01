@@ -9,6 +9,10 @@ mon = peripheral.wrap("top")
 local function Usage()
 print("USAGE: host <valveid>")
 end
+
+function firstToUpper(str)
+    return (str:gsub("^%l", string.upper))
+end
  
 -- loop so constantly updates
 rednet.open("top")
@@ -28,7 +32,7 @@ local senderId, message, distance = rednet.receive()
                 -- Sends Amount to client
                 cap = maintank.capacity
                 amt = maintank.amount
-                name = maintank.name
+                name = firstToUpper(maintank.name)
                 comName = os.getComputerID()
                 if cap == null then
                 cap = 0
@@ -37,7 +41,7 @@ local senderId, message, distance = rednet.receive()
                 amt = 0
                 end
                 if name == null then
-                name = "NULL"
+                name = "Empty"
                 end
                 rednet.send(senderId, name.." "..cap.." "..amt.." "..comName)
                 print("Awaiting ack message to send another")
